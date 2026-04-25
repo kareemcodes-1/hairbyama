@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: "2025-06-30.basil", // use a valid version
+  apiVersion: "2026-04-22.dahlia"
 });
 
 export async function POST(req: NextRequest) {
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     const stripeSession = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      line_items: cartItems.map((entry) => ({
+      line_items: cartItems.map((entry: any) => ({
         price_data: {
           currency: "usd",
           product_data: {
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       metadata: {
         userId,
         products: JSON.stringify(
-          cartItems.map((entry) => ({
+          cartItems.map((entry: any) => ({
             productId: entry.item._id,
             quantity: entry.quantity,
           }))
