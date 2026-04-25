@@ -5,7 +5,7 @@ import dbConnect from "@/lib/dbConnect";
 export async function getCollections() {
   try {
     await dbConnect();
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/collections`);
+    const res = await fetch(`/api/collections`);
     const data = await res.json();
     return data;
   } catch (error) {
@@ -15,7 +15,7 @@ export async function getCollections() {
 
 export async function getCollection(name: string) {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/collections/collection/${name}`);
+    const res = await fetch(`/api/collections/collection/${name}`);
     const data = await res.json();
     return data;
   } catch (error) {
