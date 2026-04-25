@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const DURATION = 0.25;
 const STAGGER = 0.025;
 
-export const FlipLink = ({ children }) => {
+export const FlipLink = ({ children }: {children: string}) => {
   return (
     <motion.div
       initial="initial"
@@ -39,7 +39,7 @@ export const FlipLink = ({ children }) => {
         ))}
       </div>
       <div className="absolute inset-0">
-        {children.split("").map((l, i) => (
+        {children.split("").map((l: string, i: number) => (
           <motion.span
             variants={{
               initial: {

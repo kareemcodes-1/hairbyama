@@ -2,10 +2,11 @@
 
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
+import Draggable from 'gsap/src/Draggable';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Draggable, SplitText } from 'gsap/all';
+import { SplitText } from '../../../components/animations/SplitText';
 
-gsap.registerPlugin(ScrollTrigger, Draggable, SplitText);
+gsap.registerPlugin(ScrollTrigger, Draggable);
 
 const testimonials = [
   {
@@ -45,31 +46,6 @@ export default function TestimonialSection() {
   const cardsRef = useRef<HTMLUListElement>(null);
   const dragProxyRef = useRef<HTMLDivElement>(null);
 
-   const testimonialHeadingRef = useRef<HTMLHeadingElement | null>(null);
-
-
-  useEffect(() => {
-    if (testimonialHeadingRef.current) {
-      let split = new SplitText(testimonialHeadingRef.current, { type: "chars, words", linesClass: 'line' });
-
-      gsap.from(split.chars, {
-        yPercent: 100,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.025,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: testimonialHeadingRef.current,
-          start: 'top 80%',
-          end: 'bottom 60%',
-          toggleActions: 'play none reverse none',
-        },
-      });
-    }
-
-   
-  }, []);
-
   useEffect(() => {
     if (!galleryRef.current || !cardsRef.current) return;
 
@@ -80,9 +56,7 @@ export default function TestimonialSection() {
     const spacing = 0.1;
     const snapTime = gsap.utils.snap(spacing);
 
-    let iteration = 0;
-
-    const animateFunc = (element: HTMLElement) => {
+    const animateFunc = (element: HTMLElement): gsap.core.Timeline => {
       const tl = gsap.timeline();
       tl.fromTo(
         element,
@@ -97,7 +71,11 @@ export default function TestimonialSection() {
       return tl;
     };
 
-    const buildSeamlessLoop = (items: HTMLElement[], spacing: number, animateFunc: (el: HTMLElement) => gsap.core.Timeline) => {
+    const buildSeamlessLoop = (
+      items: HTMLElement[],
+      spacing: number,
+      animateFunc: (el: HTMLElement) => gsap.core.Timeline
+    ) => {
       const overlap = Math.ceil(1 / spacing);
       const startTime = items.length * spacing + 0.5;
       const loopTime = (items.length + overlap) * spacing + 1;
@@ -105,8 +83,10 @@ export default function TestimonialSection() {
       const seamlessLoop = gsap.timeline({
         paused: true,
         repeat: -1,
-        onRepeat() {
-          (this as any)._time === (this as any)._dur && ((this as any)._tTime += (this as any)._dur - 0.01);
+        onRepeat(this: gsap.core.Timeline): void {
+          if (this._time === (this as any)._dur) {
+            (this as any)._tTime += (this as any)._dur - 0.01;
+          }
         },
       });
 
@@ -132,76 +112,70 @@ export default function TestimonialSection() {
 
     const scrub = gsap.to(playhead, {
       offset: 0,
-      onUpdate: () => seamlessLoop.time(wrapTime(playhead.offset)),
+      onUpdate(): void {
+        seamlessLoop.time(wrapTime(playhead.offset));
+      },
       duration: 0.5,
       ease: 'power3',
       paused: true,
     });
 
-    // let trigger = ScrollTrigger.create({
-    //   trigger: galleryRef.current,
-    //   start: 'top 80%',
-    //   end: 'bottom 20%',
-    //   onUpdate: (self) => {
-    //     scrub.vars.offset = (iteration + self.progress) * seamlessLoop.duration();
-    //     scrub.invalidate().restart();
-    //   },
-    //   scrub: true,
-    // });
-
-    const scrollToOffset = (offset: number) => {
+    const scrollToOffset = (offset: number): void => {
       const snappedTime = snapTime(offset);
-      const progress = (snappedTime - seamlessLoop.duration() * iteration) / seamlessLoop.duration();
-      // No wrapping needed since we don't pin or control page scroll
       scrub.vars.offset = snappedTime;
       scrub.invalidate().restart();
     };
 
-    // Prev / Next buttons
     const nextBtn = document.querySelector('.next');
     const prevBtn = document.querySelector('.prev');
 
     nextBtn?.addEventListener('click', () => scrollToOffset(scrub.vars.offset + spacing));
     prevBtn?.addEventListener('click', () => scrollToOffset(scrub.vars.offset - spacing));
 
-    // Drag support - this was the culprit!
     Draggable.create(dragProxyRef.current, {
       type: 'x',
       trigger: cardsRef.current,
-      // Critical fix: prevent vertical touch scrolling on mobile while dragging horizontally
       allowNativeTouchScrolling: false,
-      // Also helps on desktop if needed
       allowEventDefault: false,
-      onPress(this: any) {
+      onPress(this: any): void {
         this.startOffset = scrub.vars.offset;
       },
-      onDrag(this: any) {
+      onDrag(this: any): void {
         scrub.vars.offset = this.startOffset + (this.startX - this.x) * 0.001;
         scrub.invalidate().restart();
       },
-      onDragEnd(this: any) {
+      onDragEnd(this: any): void {
         scrollToOffset(scrub.vars.offset);
       },
     });
 
     return () => {
-      // trigger.kill();
       scrub.kill();
       seamlessLoop.kill();
     };
   }, []);
 
   return (
-    <section ref={galleryRef} className="relative w-full lg:h-[120vh] h-screen lg:py-[7rem] py-[5rem] pb-[5rem] bg-black overflow-hidden">
+    <section ref={galleryRef} className="relative w-full min-h-screen py-[7rem] bg-black">
       <div className="max-w-7xl mx-auto px-8 mb-16 text-center overflow-hidden">
-        <h2 className="text-5xl md:text-7xl font-medium text-white mb-6" ref={testimonialHeadingRef}>What Our Clients Say</h2>
+        <SplitText
+          text="What Our Clients Say"
+          tag="h1"
+          className="text-[2rem] md:text-[4rem] lg:text-[5rem] text-white"
+          duration={1}
+          ease="power3.out"
+          splitType="chars"
+          threshold={0.1}
+          rootMargin="-100px"
+          stagger={0.025}
+        />
       </div>
 
-      <ul ref={cardsRef} className="absolute w-80 aspect-[9/16] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-[8rem]">
+      <ul ref={cardsRef} className="absolute w-80 aspect-[9/16] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-[5rem] lg:mt-[8rem]">
         {[...testimonials, ...testimonials].map((t, i) => (
           <li
             key={i}
-            className="testimonial-card absolute lg:w-[30rem] w-full h-[27rem] rounded-xl overflow-hidden shadow-2xl"
+            className="testimonial-card absolute w-full lg:w-[30rem] h-[25rem] lg:h-[27rem] rounded-xl overflow-hidden shadow-2xl"
             style={{ backgroundImage: `url(${t.img})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8 text-white">
@@ -213,7 +187,7 @@ export default function TestimonialSection() {
                     key={i}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
-                    fill="#ec4899" // Tailwind pink-500
+                    fill="#ec4899"
                     className="w-5 h-5"
                   >
                     <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
@@ -222,7 +196,6 @@ export default function TestimonialSection() {
               </div>
 
               <h3 className="text-xl font-bold">{t.name}</h3>
-
             </div>
           </li>
         ))}

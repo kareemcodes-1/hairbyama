@@ -1,34 +1,31 @@
-"use client";
+
 // import { useEffect } from "react";
 import About from "./components/about";
 import Collections from "./components/collections";
-import CTA from "./components/cta";
-import Footer from "./components/footer";
 import Hero from "./components/hero";
-// import dbConnect from "../../lib/dbConnect";
-import Products from "./components/products";
+import Products from "./components/products/products";
 import Testimonials from "./components/testimonials";
 import LenisProvider from "./providers/lenis-provider";
 import Navbar from "./components/navbar";
-import { useEffect, useState } from "react";
 import FAQ from "./components/faq";
-import PixelLoader from "./components/loader";
+import { getProducts } from "@/actions/getProducts";
+import { getCollections } from "@/actions/getCollections";
 
 
 
-export default function Home() {
+export default async function Home() {
 
-  const [progress, setProgress] = useState(0)
-  const [loaderDone, setLoaderDone] = useState(false)
+  const products = await getProducts();
+  const collections = await getCollections();
+
 
   return (
      <LenisProvider>
-          {/* <PixelLoader /> */}
           <Navbar />
           <Hero />
           <About />
-          <Collections />
-          <Products />
+          <Collections collections={collections} />
+          <Products products={products} />
           <Testimonials />
           <FAQ />
      </LenisProvider>

@@ -1,22 +1,23 @@
 "use client";
 
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 
 export default function ContactForm() {
-  const [newsletter, setNewsletter] = useState(false);
 
   return (
     <main
-      className="min-h-screen w-full px-8 md:px-16 py-16 bg-white"
+      className="w-full py-[6rem] lg:py-[8rem] px-[1.5rem] lg:px-[3rem] bg-white"
     >
 
       {/* Two-column grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 pt-[4rem]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 lg:pt-[4rem]">
 
           {/* Contact details */}
-          <div className="flex flex-col gap-[1rem]">
+          <div className="flex flex-col gap-[.8rem]">
             <h1
-              className="text-[5rem] text-black"
+              className="text-[2rem] md:text-[4rem] lg:text-[5rem] text-black mb-[2rem]"
             >
               Reach out to us
             </h1>
@@ -43,12 +44,12 @@ export default function ContactForm() {
                 {item.href ? (
                   <a
                     href={item.href}
-                    className="text-[2rem] text-black hover:opacity-60 transition-opacity"
+                    className="text-[1rem] lg:text-[1.7rem] text-black/90 hover:opacity-60 transition-opacity"
                   >
                     {item.value}
                   </a>
                 ) : (
-                  <p className="text-[2rem] text-black">{item.value}</p>
+                  <p className="text-[1rem] lg:text-[1.7rem] text-black/90">{item.value}</p>
                 )}
               </div>
             ))}
@@ -63,20 +64,24 @@ export default function ContactForm() {
               <label className="text-[0.7rem] uppercase text-black/80">
                 Name <span className="text-black">*</span>
               </label>
-              <input
+               <Input
                 type="text"
-                placeholder="Input"
-                className="w-full bg-transparent border border-black/40 rounded-full px-5 py-3 text-sm text-black placeholder-black/40 outline-none focus:border-black transition-colors"
+                name="name"
+                id="name"
+                className="h-[3rem] rounded-full "
+                // placeholder="Name"
               />
             </div>
             <div className="flex flex-col gap-1">
               <label className="text-[0.7rem] uppercase text-black/80">
                 Email Address <span className="text-black">*</span>
               </label>
-              <input
+              <Input
                 type="email"
-                placeholder="example@email.com"
-                className="w-full bg-transparent border border-black/40 rounded-full px-5 py-3 text-sm text-black placeholder-black/40 outline-none focus:border-black transition-colors"
+                name="email"
+                id="email"
+                className="h-[3rem] rounded-full "
+                // placeholder="Email Address"
               />
             </div>
           </div>
@@ -86,11 +91,13 @@ export default function ContactForm() {
             <label className="text-[0.7rem] uppercase text-black/80">
               Subject <span className="text-black">*</span>
             </label>
-            <input
-              type="text"
-              placeholder="Input"
-              className="w-full bg-transparent border border-black/40 rounded-full px-5 py-3 text-sm text-black placeholder-black/40 outline-none focus:border-black transition-colors"
-            />
+              <Input
+                type="email"
+                name="email"
+                id="email"
+                className="h-[3rem] rounded-full "
+                // placeholder="Email Address"
+              />
           </div>
 
           {/* Message textarea */}
@@ -98,17 +105,19 @@ export default function ContactForm() {
             <label className="text-[0.7rem] uppercase text-black/80">
               Message <span className="text-black">*</span>
             </label>
-            <textarea
-              placeholder="Input"
+            <Textarea              
+              name="message"
+              id="message"
+              // placeholder="Input"
               rows={6}
-              className="w-full bg-transparent border border-black/40 rounded-3xl px-5 py-4 text-sm text-black placeholder-black/40 outline-none focus:border-black transition-colors resize-none"
+              className="w-full h-[10rem] resize-none rounded-[2rem]"
             />
           </div>
 
           {/* Send button */}
           <button
             type="submit"
-            className="w-full bg-black text-white rounded-full py-4 text-sm cursor-pointer uppercase hover:bg-black/80 transition-colors mt-2"
+            className="btn-primary dark-pink"
           >
             Send
           </button>

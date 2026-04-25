@@ -4,9 +4,33 @@ import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SplitText from 'gsap/SplitText';
+import { SplitLines } from '../../../components/animations/SplitLines';
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
+gsap.registerPlugin(ScrollTrigger);
+
+const footerLinks = {
+  legal: [
+    { label: 'PRIVACY POLICY', href: '' },
+    { label: 'TERMS OF USE', href: '' },
+    { label: 'FAQ', href: '' },
+  ],
+  support: [
+    { label: 'PAYMENT METHODS', href: '' },
+    { label: 'RETURNS AND COMPLAINTS', href: '' },
+    { label: 'SHIPPING INFO', href: '' },
+  ],
+  nav: [
+    { label: 'HOME', href: '' },
+    { label: 'ABOUT', href: '' },
+    { label: 'SHOP', href: '' },
+    { label: 'CONTACT', href: '' },
+  ],
+  contact: [
+    { label: 'EMAIL', href: '' },
+    { label: 'WHATSAPP', href: '' },
+    { label: 'INSTAGRAM', href: '' },
+  ],
+};
 
 const Footer = () => {
   const footerHeadingRef = useRef<HTMLHeadingElement | null>(null);
@@ -24,93 +48,70 @@ const Footer = () => {
       animation: uncover,
       scrub: true
     });
-
-    const splitFooterLinks = new SplitText('.footer-link', {
-      type: 'lines',
-      mask: 'lines',
-      linesClass: 'line',
-      autoSplit: true,
-    });
-
-    gsap.from(splitFooterLinks.lines, {
-      yPercent: 120,
-      opacity: 0,
-      delay: 0.2,
-      duration: 1,
-      ease: 'power3.out',
-      stagger: 0.12,
-      scrollTrigger: {
-        trigger: '.footer-link',
-        start: 'top 80%',
-        end: 'bottom 60%',
-        toggleActions: 'play none reverse none',
-      },
-    });
-
-    if (footerHeadingRef.current) {
-      let split = new SplitText(footerHeadingRef.current, { type: "chars, words", linesClass: 'line' });
-
-      gsap.from(split.chars, {
-        yPercent: 100,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.040,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: footerHeadingRef.current,
-          start: 'top 80%',
-          end: 'bottom 60%',
-          toggleActions: 'play none reverse none',
-        },
-      });
-    }
   }, []);
 
   return (
     <>
       <div className="section scroll-trigger"></div>
+
       <div className="overflow-hidden relative bg-black w-full">
-        <footer className="px-[3rem] mt-[5rem] footer">
-          
-          {/* Links Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-[1.5rem] text-white/80 text-[.9rem]">
-            <div className="flex flex-col gap-2">
-              <Link href={''} className="footer-link">PRIVACY POLICY</Link>
-              <Link href={''} className="footer-link">TERMS OF USE</Link>
-              <Link href={''} className="footer-link">FAQ</Link>
-            </div>
+        <footer className="
+          footer
+          px-5 py-10
+          sm:px-8 sm:py-12
+          md:px-[3rem] md:py-[4rem]
+          mt-10 sm:mt-12 md:mt-[5rem]
+        ">
 
-            <div className="flex flex-col gap-2">
-              <Link href={''} className="footer-link">PAYMENT METHODS</Link>
-              <Link href={''} className="footer-link">RETURNS AND COMPLAINTS</Link>
-              <Link href={''} className="footer-link">SHIPPING INFO</Link>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Link href={''} className="footer-link">HOME</Link>
-              <Link href={''} className="footer-link">ABOUT</Link>
-              <Link href={''} className="footer-link">SHOP</Link>
-               <Link href={''} className="footer-link">CONTACT</Link>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <Link href={''} className="footer-link">EMAIL</Link>
-              <Link href={''} className="footer-link">WHATSAPP</Link>
-              <Link href={''} className="footer-link">INSTAGRAM</Link>
-            </div>
+          {/* Links */}
+          <div className="
+            grid 
+            grid-cols-1 
+            xs:grid-cols-2 
+            sm:grid-cols-2 
+            md:grid-cols-4 
+            gap-6 sm:gap-8
+            text-white/70 
+            text-[0.75rem] xs:text-[0.8rem] sm:text-[0.9rem]
+          ">
+            {Object.values(footerLinks).map((group, groupIndex) => (
+              <div key={groupIndex} className="flex flex-col gap-2 sm:gap-3">
+                {group.map((link) => (
+                  <Link key={link.label} href={link.href}>
+                    <SplitLines
+                      text={link.label}
+                      tag="span"
+                      className="block"
+                      duration={1}
+                      stagger={0.1}
+                      ease="power3.out"
+                      yPercent={120}
+                      threshold={0.1}
+                      rootMargin="-50px"
+                    />
+                  </Link>
+                ))}
+              </div>
+            ))}
           </div>
 
-          {/* Footer Logo */}
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 w-full">
-            <div className="overflow-hidden">
-              <h1
-                ref={footerHeadingRef}
-                className="lg:text-[18rem] gin text-[4.5rem] !tracking-[0] lg:leading-[15rem] text-pink-500 overflow-hidden"
-              >
+          {/* Logo */}
+          <div className="
+            mt-10 sm:mt-12 md:mt-12
+            flex justify-center items-center
+          ">
+            <div className="overflow-hidden text-center">
+              <h1 className="
+                gin text-pink-500
+                text-[4rem] md:text-[6rem]
+                lg:text-[20vw]
+                leading-[5rem]
+              ">
                 hairsbyama
               </h1>
             </div>
           </div>
+
         </footer>
       </div>
     </>

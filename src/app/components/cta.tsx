@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { SplitText } from 'gsap/SplitText';
+import { SplitLines } from "../../../components/animations/SplitLines";
 
 gsap.registerPlugin(SplitText)
 
@@ -18,14 +19,17 @@ const CTA = () => {
       gsap.fromTo(
         ctaImageRef.current,
         { scale: 1.2 },
-        { scale: 1, duration: 1, ease: 'power1.out', 
+        {
+          scale: 1,
+          duration: 1,
+          ease: 'power1.out',
           scrollTrigger: {
-          trigger: ctaImageRef.current,
-          start: '200px 80%',
-          end: 'bottom 60%',
-          toggleActions: 'play none reverse none',
-          // markers: true,
-        },}
+            trigger: ctaImageRef.current,
+            start: '200px 80%',
+            end: 'bottom 60%',
+            toggleActions: 'play none reverse none',
+          },
+        }
       );
     }
 
@@ -61,7 +65,6 @@ const CTA = () => {
         duration: 1,
         ease: 'power3.out',
         stagger: 0.25,
-
         scrollTrigger: {
           trigger: ctaDescriptionRef.current,
           start: 'top 80%',
@@ -70,14 +73,15 @@ const CTA = () => {
         },
       });
     }
-    
+
   }, []);
 
   return (
-    <section className="relative w-full flex flex-col md:flex-row h-[100vh] md:h-[95vh] bg-gray-50 overflow-hidden">
+    <section className="relative w-full flex flex-col md:flex-row 
+      lg:min-h-screen h-screen overflow-hidden">
 
-      {/* Left Image */}
-      <div className="w-full md:w-1/2 h-[23rem] md:h-full overflow-hidden">
+      {/* Image */}
+      <div className="w-full md:w-1/2 md:h-full overflow-hidden">
         <img
           src="https://i.pinimg.com/1200x/a7/59/cc/a759cc0b1d85c60498cfd7fbf93b956f.jpg"
           alt="CTA Image"
@@ -86,21 +90,76 @@ const CTA = () => {
         />
       </div>
 
-      {/* Right: Purple Card */}
-      <div className="bg-pink-500 p-8 sm:p-10 md:p-14 md:pt-[7rem] text-white shadow-2xl w-full md:w-1/2 h-full flex flex-col justify-center">
-        <h2 className="text-3xl sm:text-4xl md:text-[5rem] font-[500] leading-tight mb-6 sm:mb-8 overflow-hidden" ref={ctaHeadingRef}>
-          Ready for<br />a new look?
-        </h2>
+      {/* Content */}
+      <div className="bg-pink-500 
+        px-5 py-8 
+        sm:px-8 sm:py-10 
+        md:p-14 md:pt-[7rem] 
+        text-white shadow-2xl 
+        w-full md:w-1/2 
+        flex flex-col justify-center h-full">
 
-        <p ref={ctaDescriptionRef} className="text-sm sm:text-base md:text-[.9rem] overflow-hidden leading-[1.5] opacity-90 uppercase mb-8 sm:mb-12 max-w-full sm:max-w-md">
-          Find premium hair extensions trusted for quality, comfort, and natural beauty.
-        </p>
+        {/* Heading */}
+        <SplitLines
+          text='Ready for a new look?'
+          tag="h1"
+          className="
+            text-[2rem] xs:text-[2.4rem] sm:text-[3rem] md:text-[5rem]
+            leading-tight
+            mb-5 sm:mb-6 md:mb-8
+            overflow-hidden
+            w-full md:w-[500px]
+          "
+          duration={1}
+          stagger={0.1}
+          ease="power3.out"
+          yPercent={150}
+          threshold={0.1}
+          rootMargin="-100px"
+        />
 
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-          <button className="px-8 sm:px-10 py-3 sm:py-[1.1rem] bg-black uppercase text-white text-sm sm:text-[.9rem] rounded-full cursor-pointer shadow-lg transition">
+        {/* Description */}
+        <SplitLines
+          text='Find premium hair extensions trusted for quality, comfort, and natural beauty.'
+          tag="p"
+          className="
+            text-[0.75rem] xs:text-[0.8rem] sm:text-[0.9rem]
+            text-white/70 uppercase
+            mb-6 sm:mb-8 md:mb-12
+            max-w-full sm:max-w-md
+            leading-relaxed
+            overflow-hidden
+          "
+          duration={1}
+          stagger={0.1}
+          ease="power3.out"
+          yPercent={150}
+          threshold={0.1}
+          rootMargin="-100px"
+        />
+
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 md:gap-6">
+          <button className="
+            px-6 py-3 
+            sm:px-8 sm:py-3.5 
+            md:px-10 md:py-[1.1rem]
+            bg-black uppercase text-white
+            text-xs sm:text-sm md:text-[0.9rem]
+            rounded-full shadow-lg transition
+          ">
             See Products
           </button>
-          <button className="faq-btn px-8 sm:px-10 py-3 sm:py-[1.1rem] uppercase bg-transparent border border-white text-white text-sm sm:text-[.9rem] font-medium rounded-full cursor-pointer transition">
+
+          <button className="
+            px-6 py-3 
+            sm:px-8 sm:py-3.5 
+            md:px-10 md:py-[1.1rem]
+            uppercase border border-white text-white
+            text-xs sm:text-sm md:text-[0.9rem]
+            rounded-full transition
+            hover:bg-white hover:text-pink-500
+          ">
             Call us
           </button>
         </div>

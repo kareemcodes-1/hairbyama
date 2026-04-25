@@ -54,8 +54,8 @@ const CheckoutBtn = () => {
     <button
       onClick={checkout}
       disabled={pending}
-      className="btn btn--filled-dark btn--icon-right !h-[3rem] !lg:h-[4rem] !text-[1.5rem] !w-full !text-start "
-      
+      className="btn-primary dark-pink w-full"
+
     >
       {pending ? <Spinner className="size-8" /> : "CHECKOUT"}
     </button>
@@ -99,11 +99,11 @@ const CartModal = ({ openCartModal, setOpenCartModal }: CartModalProps) => {
       >
         {/* Header */}
         <div className="flex items-center justify-between px-[1.5rem] lg:px-8 pt-[1.5rem] lg:pt-8 pb-4">
-          <h2 className="text-[1.3rem] lg:text-[1.7rem] text-black font-extralight tracking-wide">
-            CART
+          <h2 className="text-[1.3rem] lg:text-[1.7rem] text-black">
+            Cart
           </h2>
           <div className="cursor-pointer" onClick={() => setOpenCartModal(false)}>
-            <X size={24} strokeWidth={1} />
+            <X size={25} strokeWidth={1.5} />
           </div>
         </div>
 
@@ -116,24 +116,19 @@ const CartModal = ({ openCartModal, setOpenCartModal }: CartModalProps) => {
                   key={index}
                   className="flex items-start gap-[1rem] w-full border-b border-black/8 py-[1.2rem] lg:py-[1.5rem]"
                 >
-                  {/* Image */}
-                  <div className="w-[4.5rem] h-[4.5rem] lg:w-[5.5rem] lg:h-[5.5rem] bg-gray-100 rounded-[.5rem] flex-shrink-0 overflow-hidden relative">
-                    <Image src={item.images[0]} alt={item.name} fill className="object-contain p-[.4rem]" />
+
+                  <div className="relative w-[4.5rem] h-[4.5rem] lg:w-[5rem] lg:h-[5rem] flex-shrink-0 overflow-hidden relative rounded-lg">
+                    <Image src={item.images[0]} alt={item.name} fill quality={100} className="object-contain w-full h-full" />
                   </div>
 
                   {/* Info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-start">
                       <div>
-                        <p className="text-[.85rem] lg:text-[.95rem] font-[300] text-black">{item.name}</p>
-                        <div className="flex items-center gap-[.5rem]">
-
-                          <p className=" text-[.75rem] lg:text-[.8rem] text-black/40 font-[300] mt-[.2rem]">{selectedSize}</p>
-
-                        </div>
+                        <p className="text-[.85rem] lg:text-[1.1rem] font-[300] text-black">{item.name}</p>
                       </div>
                       <span className="text-[.85rem] lg:text-[.9rem] font-[300] text-black flex-shrink-0 ml-[1rem]">
-                        {priceFormatter(item.price)}
+                        {quantity} x {priceFormatter(item.price)}
                       </span>
                     </div>
 
@@ -148,8 +143,8 @@ const CartModal = ({ openCartModal, setOpenCartModal }: CartModalProps) => {
                           <Plus size={12} strokeWidth={1.5} className="cursor-pointer text-black/60 hover:text-black transition-colors" />
                         </button>
                       </div>
-                      <button onClick={() => removeItem(item._id)}>
-                        <X size={16} strokeWidth={1.5} className="text-black/30 hover:text-black transition-colors" />
+                      <button onClick={() => removeItem(item._id)} className="cursor-pointer">
+                        <X size={25} strokeWidth={1.5} className="text-black/30 hover:text-black transition-colors" />
                       </button>
                     </div>
                   </div>
@@ -158,7 +153,7 @@ const CartModal = ({ openCartModal, setOpenCartModal }: CartModalProps) => {
             </div>
           ) : (
             <div className="flex items-center justify-center h-full">
-              <h1 className="text-center font-[200] text-[1.5rem] lg:text-[2rem] uppercase text-black">
+              <h1 className="text-center text-[1.5rem] lg:text-[2.5rem] text-black">
                 Your cart is empty.
               </h1>
             </div>
