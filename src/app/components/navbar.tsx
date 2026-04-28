@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
-import { ShoppingBasket, User, LogOut, Package, Menu, X } from 'lucide-react';
+import { ShoppingBasket, User, LogOut, Package, Menu, X, Search } from 'lucide-react';
 import CartModal from './modals/cart-modal';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
@@ -15,6 +15,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import SearchModal from './modals/search-modal';
+import MenuModal from './modals/menu-modal';
 
 gsap.registerPlugin(SplitText);
 
@@ -29,6 +31,8 @@ const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [openCartModal, setOpenCartModal] = useState(false);
+  const [openSearchModal, setOpenSearchModal] = useState(false);
+  const [openMenuModal, setOpenMenuModal] = useState(false);
 
   const { data: session } = useSession();
 
@@ -40,9 +44,9 @@ const Navbar: React.FC = () => {
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    document.body.style.overflow = openMenuModal ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
-  }, [menuOpen]);
+  }, [openMenuModal]);
 
   const pathname = usePathname();
 
@@ -62,8 +66,16 @@ const Navbar: React.FC = () => {
         <CartModal openCartModal={openCartModal} setOpenCartModal={setOpenCartModal} />
       )}
 
+      {openSearchModal && (
+        <SearchModal openSearchModal={openSearchModal} setOpenSearchModal={setOpenSearchModal} />
+      )}
+
+      {openMenuModal && (
+        <MenuModal openMenuModal={openMenuModal} setOpenMenuModal={setOpenMenuModal} />
+      )}
+
       <header
-        className={`fixed top-0 left-0 w-full right-0 z-[100] py-[1rem] lg:py-[1.7rem] px-[1.5rem] lg:px-[3rem] transition-all duration-500 ${
+        className={`fixed top-0 left-0 w-full right-0 z-[300] py-[1rem] lg:py-[1.7rem] px-[1.5rem] lg:px-[3rem] transition-all duration-500 ${
           scrolled ? 'bg-white shadow-md border' : isLight ? 'bg-transparent' : 'bg-white'
         }`}
       >
@@ -81,14 +93,14 @@ const Navbar: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-[6rem] ml-auto">
-            <div className="flex items-center gap-[2rem]">
+          <div className="flex items-center gap-[6rem] ml-auto">
+            <div className="hidden lg:flex items-center gap-[2rem]">
               {links.map((link, index) => (
                 <Link
                   ref={(el) => { navRefs.current[index] = el; }}
                   href={link.href}
                   key={index}
-                  className={`text-[.975rem] fk uppercase transition ${
+                  className={`text-[.975rem] font-[500] uppercase transition ${
                     isLight ? 'text-white hover:text-pink-400' : 'text-black hover:text-pink-400'
                   }`}
                 >
@@ -99,6 +111,14 @@ const Navbar: React.FC = () => {
 
             {/* Cart + User */}
             <div className="flex items-center gap-[1rem]">
+
+               <button className={`hidden lg:block text-[.975rem] uppercase cursor-pointer transition ${
+                  isLight ? 'text-white hover:text-pink-400' : 'text-black hover:text-pink-400'
+                }`}
+                onClick={() => setOpenSearchModal(true)}>
+                <Search strokeWidth={2} />
+              </button>
+
               <div
                 ref={navCart}
                 className={`text-[.975rem] uppercase cursor-pointer transition ${
@@ -108,6 +128,8 @@ const Navbar: React.FC = () => {
               >
                 <ShoppingBasket strokeWidth={2} />
               </div>
+
+
 
               {session?.user ? (
                 <DropdownMenu>
@@ -153,55 +175,40 @@ const Navbar: React.FC = () => {
                 <Link
                   href="/auth/login"
                   className={`text-[.975rem] uppercase transition ${
-                    isLight ? 'text-white hover:text-pink-400' : 'text-black hover:text-pink-400'
+                    isLight ? 'text-white hover:text-pink-400' : 'text-black hover:text-pink-400 cursor-pointer'
                   }`}
                 >
                   <User strokeWidth={2} />
                 </Link>
               )}
+
+            <button
+              className={`block lg:hidden transition cursor-pointer ${
+                menuOpen ? 'text-white' : isLight ? 'text-white' : 'text-black'
+              }`}
+              onClick={() => setOpenMenuModal(prev => !prev)}
+              aria-label="Toggle menu"
+            >
+              <Menu strokeWidth={2} size={24} />
+            </button>
             </div>
           </div>
 
-          {/* Mobile Right Actions */}
-          <div className="flex lg:hidden items-center gap-4 z-[110]">
-            {/* Cart icon */}
-            <button
-              className={`transition ${
-                menuOpen ? 'text-white' : isLight ? 'text-white' : 'text-black'
-              }`}
-              onClick={() => setOpenCartModal(true)}
-              aria-label="Open cart"
-            >
-              <ShoppingBasket strokeWidth={2} size={22} />
-            </button>
-
-            {/* Hamburger / Close toggle */}
-            <button
-              className={`transition ${
-                menuOpen ? 'text-white' : isLight ? 'text-white' : 'text-black'
-              }`}
-              onClick={() => setMenuOpen(prev => !prev)}
-              aria-label="Toggle menu"
-            >
-              {menuOpen ? <X strokeWidth={2} size={24} /> : <Menu strokeWidth={2} size={24} />}
-            </button>
-          </div>
         </nav>
       </header>
 
       {/* Mobile Full-Screen Menu Overlay */}
-      <div
+      {/* <div
         className={`fixed inset-0 z-[1000] bg-pink-500 flex flex-col transition-all duration-500 ease-in-out lg:hidden ${
           menuOpen
             ? 'opacity-100 pointer-events-auto translate-y-0'
             : 'opacity-0 pointer-events-none -translate-y-4'
         }`}
       >
-        {/* Decorative circles */}
         <div className="absolute top-[-5rem] right-[-4rem] w-[16rem] h-[16rem] rounded-full bg-pink-400/40 pointer-events-none" />
         <div className="absolute bottom-[6rem] left-[-5rem] w-[18rem] h-[18rem] rounded-full bg-pink-600/30 pointer-events-none" />
 
-        {/* Nav Links */}
+
         <div className="flex flex-col justify-center flex-1 px-10 gap-2">
           {links.map((link, i) => (
             <Link
@@ -220,7 +227,7 @@ const Navbar: React.FC = () => {
           ))}
         </div>
 
-        {/* Bottom Section: Auth + Socials */}
+
         <div className="px-10 pb-12 flex flex-col gap-6">
           {session?.user ? (
             <div className="flex flex-col gap-3">
@@ -268,7 +275,7 @@ const Navbar: React.FC = () => {
             © {new Date().getFullYear()} Hairsbyama
           </p>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

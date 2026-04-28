@@ -48,13 +48,13 @@ const Products = ({ products }: ProductsProps) => {
 
 
 
-          <button className='btn-outline'>
+          <button className='btn-outline border-black border text-black'>
             View all
           </button>
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[2rem] md:gap-16">
           {products.map((item, i) => (
             <ProductCard key={i} item={item} />
           ))}

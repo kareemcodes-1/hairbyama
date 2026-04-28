@@ -34,7 +34,7 @@ const FilterModal = ({ openFilterModal, setOpenFilterModal }: FilterModalProps) 
   }, [openFilterModal]);
 
   return createPortal(
-    <div className={`fixed top-0 right-0 h-screen lg:w-[50%] w-full z-[2000] ${openFilterModal ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+    <div className={`fixed top-0 right-0 h-screen lg:w-[50%] w-full z-[360] ${openFilterModal ? 'pointer-events-auto' : 'pointer-events-none'}`}>
       <div
         ref={ref}
         className="flex px-[1rem] lg:px-[2rem] flex-col h-full bg-[#f8f8f8] relative shadow-lg translate-x-full"

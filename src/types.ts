@@ -11,7 +11,7 @@ export type Collection = {
 export type Product = {
   _id: string;
   name: string;
-  collectionId: string;
+  collectionId: Collection;
   userId: string;
   description: string;
   price: number;

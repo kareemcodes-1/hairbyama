@@ -54,7 +54,7 @@ const CheckoutBtn = () => {
     <button
       onClick={checkout}
       disabled={pending}
-      className="btn-primary dark-pink w-full"
+      className="btn-primary dark-pink !w-full"
 
     >
       {pending ? <Spinner className="size-8" /> : "CHECKOUT"}
@@ -92,7 +92,7 @@ const CartModal = ({ openCartModal, setOpenCartModal }: CartModalProps) => {
 
 
   return createPortal(
-    <div className="fixed top-0 right-0 h-screen lg:w-[50%] w-full z-[106] pointer-events-auto">
+    <div className="fixed top-0 right-0 h-screen lg:w-[50%] w-full z-[360] pointer-events-auto">
       <div
         ref={ref}
         className="flex flex-col h-full bg-white relative shadow-lg translate-x-full"
@@ -111,7 +111,7 @@ const CartModal = ({ openCartModal, setOpenCartModal }: CartModalProps) => {
         <div className="flex-1 overflow-y-auto px-[1.5rem] lg:px-[2rem]">
           {cartItems.length > 0 ? (
             <div className="flex flex-col">
-              {cartItems.map(({ item, quantity, selectedSize }, index) => (
+              {cartItems.map(({ item, quantity}, index) => (
                 <div
                   key={index}
                   className="flex items-start gap-[1rem] w-full border-b border-black/8 py-[1.2rem] lg:py-[1.5rem]"
@@ -153,7 +153,7 @@ const CartModal = ({ openCartModal, setOpenCartModal }: CartModalProps) => {
             </div>
           ) : (
             <div className="flex items-center justify-center h-full">
-              <h1 className="text-center text-[1.5rem] lg:text-[2.5rem] text-black">
+              <h1 className="text-center text-[1.5rem] lg:text-[2.5rem] text-black/70">
                 Your cart is empty.
               </h1>
             </div>

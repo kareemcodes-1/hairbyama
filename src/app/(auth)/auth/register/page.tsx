@@ -57,7 +57,7 @@ const Register = () => {
       {/* Form Side */}
       <div className="flex flex-col justify-center w-full lg:w-1/2 px-[1.5rem] py-[3rem] lg:px-8 lg:py-12">
         <div className="w-full max-w-[400px] mx-auto">
-          <h2 className="mb-[2rem] lg:mb-[2rem] text-center text-[1.1rem] lg:text-[1.5rem] font-semibold text-black bebas">
+          <h2 className="mb-[2rem] lg:mb-[2rem] text-center text-[1.1rem] lg:text-[1.5rem] text-black">
             Sign Up To Account
           </h2>
 
@@ -71,7 +71,7 @@ const Register = () => {
                 type="text"
                 name="name"
                 id="name"
-                className="h-[3rem] lg:h-[3.5rem] rounded-full uppercase"
+                className="h-[3rem] lg:h-[3.5rem] rounded-full"
               />
             </div>
 
@@ -83,7 +83,7 @@ const Register = () => {
                 type="email"
                 name="email"
                 id="email"
-                className="h-[3rem] lg:h-[3.5rem] rounded-full uppercase"
+                className="h-[3rem] lg:h-[3.5rem] rounded-full"
               />
             </div>
 
@@ -95,7 +95,7 @@ const Register = () => {
                 type="password"
                 name="password"
                 id="password"
-                className="h-[3rem] lg:h-[3.5rem] rounded-full uppercase"
+                className="h-[3rem] lg:h-[3.5rem] rounded-full"
               />
             </div>
 

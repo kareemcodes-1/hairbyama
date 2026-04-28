@@ -8,8 +8,8 @@ export async function generateMetadata({ params }: GenerateMetadataParams): Prom
   const { name } = await params;
   const decodedName = decodeURIComponent(name.replace(/-/g, " "));
   return {
-    title: `${decodedName} | Zuvora`,
-    description: `Discover details about ${decodedName} in our Zuvora collection.`,
+    title: `${decodedName} | Hair by Ama`,
+    description: `Discover details about ${decodedName} in our Hair collection.`,
   };
 }
 

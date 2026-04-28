@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Product from "../../../../../../models/Product";
+import Collection from "../../../../../../models/Collection";
 import dbConnect from "@/lib/dbConnect";
 
 export async function GET(
@@ -11,7 +12,7 @@ export async function GET(
   try {
     await dbConnect();
     const decodedName = decodeURIComponent(name.replace(/-/g, " "));
-    const product = await Product.findOne({ name: decodedName });
+    const product = await Product.findOne({ name: decodedName }).populate("collectionId", "name description images");
 
     if (!product) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });

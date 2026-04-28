@@ -1,5 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 import Product from "../../models/Product";
+import Collection from "../../models/Collection";
 
 export async function getRelatedProducts(
   collectionId: string,
@@ -9,8 +10,9 @@ export async function getRelatedProducts(
   await dbConnect();
   const products = await Product.find({
     collectionId,
-    _id: { $ne: excludeId }, // exclude the current product
+    _id: { $ne: excludeId },
   })
+    .populate("collectionId", "name description images")
     .limit(limit)
     .lean();
 

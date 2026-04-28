@@ -1,19 +1,17 @@
 import { create } from "zustand";
 import { toast } from "react-hot-toast";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { Product } from "../types";
-import { Types } from "mongoose";
+import { Product } from "@/types";
 
 interface CartItem {
   item: Product;
-  selectedSize: string;
   quantity: number;
 }
 
 interface CartStore {
   cartItems: CartItem[];
-  isCartOpen: boolean;                          // ADD
-  setCartOpen: (open: boolean) => void;         // ADD
+  isCartOpen: boolean;
+  setCartOpen: (open: boolean) => void;
   addItem: (item: CartItem) => void;
   removeItem: (idToRemove: string) => void;
   increaseQuantity: (idToIncrease: string) => void;
@@ -25,22 +23,21 @@ const useCart = create(
   persist<CartStore>(
     (set, get) => ({
       cartItems: [],
-      isCartOpen: false,                        // ADD
-      setCartOpen: (open) => set({ isCartOpen: open }), // ADD
+      isCartOpen: false,
+      setCartOpen: (open) => set({ isCartOpen: open }),
       addItem: (data: CartItem) => {
-        const { item, quantity, selectedSize } = data;
-        const currentItems = get().cartItems; // all the items already in cart
-       const isExisting = currentItems.find(
-  (cartItem) =>
-    cartItem.item._id === item._id && cartItem.selectedSize === data.selectedSize
-);
+        const { item, quantity } = data;
+        const currentItems = get().cartItems;
+        const isExisting = currentItems.find(
+          (cartItem) => cartItem.item._id === item._id
+        );
 
         if (isExisting) {
           return toast("Item already in cart");
         }
 
-        set({ cartItems: [...currentItems, { item, selectedSize, quantity,}] });
-        set({ isCartOpen: true });  
+        set({ cartItems: [...currentItems, { item, quantity }] });
+        set({ isCartOpen: true });
         toast.success("Item added to cart", { icon: "✅" });
       },
       removeItem: (idToRemove: string) => {
@@ -78,4 +75,3 @@ const useCart = create(
 );
 
 export default useCart;
-

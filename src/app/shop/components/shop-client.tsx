@@ -26,7 +26,7 @@ export default function ShopClient({ initialProducts, collections }: Props) {
   const filtered =
     activeCollection === "All"
       ? initialProducts
-      : initialProducts.filter((p) => p.collectionId === activeCollection);
+      : initialProducts.filter((p) => p.collectionId._id === activeCollection);
 
   const sorted = [...filtered].sort((a, b) => {
     if (sort === "Price: Low–High") return a.price - b.price;
@@ -158,7 +158,7 @@ export default function ShopClient({ initialProducts, collections }: Props) {
         <div className="
           grid 
           grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 
-          gap-4 sm:gap-6 md:gap-[2rem]
+          gap-[2rem] lg:gap-[3rem]
         ">
           {sorted.map((product) => (
             <ProductCard key={product._id} item={product} />

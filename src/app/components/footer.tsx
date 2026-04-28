@@ -100,10 +100,10 @@ const Footer = () => {
             mt-10 sm:mt-12 md:mt-12
             flex justify-center items-center
           ">
-            <div className="overflow-hidden text-center">
+            <div className="overflow-hidden lg:text-center">
               <h1 className="
                 gin text-pink-500
-                text-[4rem] md:text-[6rem]
+                text-[4.5rem] md:text-[6rem]
                 lg:text-[20vw]
                 leading-[5rem]
               ">

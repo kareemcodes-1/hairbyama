@@ -231,6 +231,11 @@ p, span, button, label, input{
     /* letter-spacing: .1rem; */
     font-weight: 500 !important;
      /* font-family: "Geom", sans-serif; */
+
+}
+
+button{
+  cursor: pointer;
 }
 
 .line{
@@ -242,16 +247,16 @@ p, span, button, label, input{
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-weight: 500;
 
   background-color: var(--color-pink-500);
   color: white;
 
   text-align: center;
-  padding: 0.75rem 3rem;
-  height: 3rem;
+  padding: .9rem 3rem;
+  /* height: 3rem; */
 
   border-radius: 9999px;
-  font-weight: 500;
   text-transform: uppercase;
 
   transition: all 300ms;
@@ -279,10 +284,8 @@ p, span, button, label, input{
 .btn-outline {
   cursor: pointer;
   background-color: transparent;
-  border: 1px solid black;
-  color: black;
 
-  padding: 0.6rem 3rem;
+  padding: .9rem 3rem;
   border-radius: 9999px;
 
   text-transform: uppercase;
@@ -292,12 +295,13 @@ p, span, button, label, input{
   align-items: center;
   justify-content: center;
   transition: all 300ms;
+    font-weight: 500;
 }
 
-.btn-outline:hover {
+/* .btn-outline:hover {
   background-color: black;
   color: white;
-}
+} */
 
 /* SMALL SCREENS */
 @media (min-width: 640px) {
@@ -305,13 +309,17 @@ p, span, button, label, input{
     padding: 0.9rem 3rem;
     height: 3.5rem;
     font-size: 0.95rem;
-    width: 100%;
+    /* width: 100%; */
+    width: auto;
+      font-weight: 500;
+   
   }
 
   .btn-outline {
-    padding: 0.75rem 3rem;
+    padding: 1rem 3rem;
     font-size: 1rem;
-    width: 100%;
+    width: auto;
+      font-weight: 500;
   }
 }
 

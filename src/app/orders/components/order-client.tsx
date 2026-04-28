@@ -57,7 +57,7 @@ export default function OrdersClient({ orders }: { orders: Order[] }) {
                 Your orders is empty.
               </h1>
 
-              <Link href={'/shop'} className="btn-primary dark-pink">Start shopping</Link>
+              <Link href={'/shop'} className="btn-primary dark-pink w-auto lg:w-[20rem]">Start shopping</Link>
             </div>
         )}
 

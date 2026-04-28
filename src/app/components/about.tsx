@@ -15,8 +15,8 @@ const About = () => {
   const aboutImageRef = useRef<HTMLImageElement | null>(null);
 
   return (
-    <section className="bg-pink-500 w-full px-6 sm:px-12 py-[7rem] md:py-32 flex items-center justify-center lg:min-h-screen">
-      <div className="max-w-[1200px] w-full text-start lg:text-center flex flex-col gap-8 sm:gap-10 md:gap-[3rem]">
+    <section className="bg-pink-500 w-full px-[1.5rem] lg:px-[0] py-[7rem] flex items-center justify-center lg:min-h-screen">
+      <div className="lg:max-w-[1200px] w-full text-start lg:text-center flex flex-col lg:items-center lg:justify-center gap-8 md:gap-[3rem]">
 
         <SplitLines
           text='We are a growing hair extension brand offering premium-quality products designed for natural looks, durability, and everyday confidence.'
@@ -30,7 +30,7 @@ const About = () => {
           rootMargin="-100px"
         />
 
-        <Link href="/about" className='border-white border cursor-pointer text-white rounded-[10rem] py-[1rem] px-6 uppercase flex items-center justify-center !lg:w-[20rem]'>
+        <Link href="/about" className='btn-outline border border-white text-white w-auto lg:w-[20rem] block lg:flex items-center justify-center'>
           Learn More
         </Link>
       </div>

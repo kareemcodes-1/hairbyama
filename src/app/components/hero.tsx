@@ -65,7 +65,7 @@ const Hero = () => {
             >
               <Link
                 href="/shop"
-                className="btn-primary"
+                className="btn-primary lg:!w-full"
               >
                 Shop Now
               </Link>

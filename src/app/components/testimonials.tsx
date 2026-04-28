@@ -100,7 +100,11 @@ export default function TestimonialSection() {
       rawSequence.time(startTime);
       seamlessLoop
         .to(rawSequence, { time: loopTime, duration: loopTime - startTime, ease: 'none' })
-        .fromTo(rawSequence, { time: overlap * spacing + 1 }, { time: startTime, duration: startTime - (overlap * spacing + 1), immediateRender: false, ease: 'none' });
+        .fromTo(
+          rawSequence,
+          { time: overlap * spacing + 1 },
+          { time: startTime, duration: startTime - (overlap * spacing + 1), immediateRender: false, ease: 'none' }
+        );
 
       return seamlessLoop;
     };
@@ -156,8 +160,13 @@ export default function TestimonialSection() {
   }, []);
 
   return (
-    <section ref={galleryRef} className="relative w-full min-h-screen py-[7rem] bg-black">
-      <div className="max-w-7xl mx-auto px-8 mb-16 text-center overflow-hidden">
+    <section
+      ref={galleryRef}
+      className="relative w-full bg-black overflow-hidden"
+      style={{ minHeight: '100svh' }}
+    >
+      {/* Heading */}
+      <div className="w-full lg:max-w-7xl mx-auto px-[1rem] lg:px-[3rem] pt-[7rem] pb-8 text-center overflow-hidden">
         <SplitText
           text="What Our Clients Say"
           tag="h1"
@@ -171,41 +180,64 @@ export default function TestimonialSection() {
         />
       </div>
 
-      <ul ref={cardsRef} className="absolute w-80 aspect-[9/16] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-[5rem] lg:mt-[8rem]">
-        {[...testimonials, ...testimonials].map((t, i) => (
-          <li
-            key={i}
-            className="testimonial-card absolute w-full lg:w-[30rem] h-[25rem] lg:h-[27rem] rounded-xl overflow-hidden shadow-2xl"
-            style={{ backgroundImage: `url(${t.img})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8 text-white">
-              <p className="text-lg mb-2 italic">&ldquo;{t.quote}&rdquo;</p>
+      {/*
+        Card stage:
+        - explicit height so the `absolute` cards have a real containing block
+        - overflow-hidden clips the fly-in/fly-out animation cleanly
+        - cards are centered inside via absolute + inset-0 + flex centering on the ul
+      */}
+      <div
+        className="relative w-full overflow-hidden"
+        style={{ height: 'clamp(26rem, 65vw, 32rem)' }}
+      >
+        <ul
+          ref={cardsRef}
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          {[...testimonials, ...testimonials].map((t, i) => (
+            <li
+              key={i}
+              className="testimonial-card absolute rounded-xl overflow-hidden shadow-2xl"
+              style={{
+                width: 'clamp(15rem, 76vw, 30rem)',
+                height: 'clamp(21rem, 58vw, 27rem)',
+                backgroundImage: `url(${t.img})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 lg:p-8 text-white">
+                <p className="text-sm lg:text-lg mb-2 italic leading-snug">
+                  &ldquo;{t.quote}&rdquo;
+                </p>
 
-              <div className="flex gap-[4px] mb-[.5rem]">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <svg
-                    key={i}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="#ec4899"
-                    className="w-5 h-5"
-                  >
-                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                  </svg>
-                ))}
+                <div className="flex gap-[4px] mb-2">
+                  {Array.from({ length: 5 }).map((_, j) => (
+                    <svg
+                      key={j}
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="#ec4899"
+                      className="w-4 h-4 lg:w-5 lg:h-5"
+                    >
+                      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                    </svg>
+                  ))}
+                </div>
+
+                <h3 className="text-base lg:text-xl font-bold">{t.name}</h3>
               </div>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-              <h3 className="text-xl font-bold">{t.name}</h3>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-8 z-10">
-        <button className="prev uppercase px-8 py-4 border border-white rounded-full text-white font-medium hover:border-pink-500 hover:text-pink-500 cursor-pointer transition">
+      {/* Prev / Next — now in normal flow, not absolute */}
+      <div className="flex justify-center gap-6 pt-8 pb-16">
+        <button className="prev uppercase px-6 py-3 lg:px-8 lg:py-4 border border-white rounded-full text-white text-sm font-medium hover:border-pink-500 hover:text-pink-500 cursor-pointer transition">
           Prev
         </button>
-        <button className="next uppercase px-8 py-4 border border-white outline-none rounded-full text-white font-medium hover:border-pink-500 hover:text-pink-500 cursor-pointer transition">
+        <button className="next uppercase px-6 py-3 lg:px-8 lg:py-4 border border-white rounded-full text-white text-sm font-medium hover:border-pink-500 hover:text-pink-500 cursor-pointer transition">
           Next
         </button>
       </div>

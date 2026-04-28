@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { SplitText } from 'gsap/SplitText';
 import { SplitLines } from "../../../components/animations/SplitLines";
+import Link from "next/link";
 
 gsap.registerPlugin(SplitText)
 
@@ -78,10 +79,10 @@ const CTA = () => {
 
   return (
     <section className="relative w-full flex flex-col md:flex-row 
-      lg:min-h-screen h-screen overflow-hidden">
+  lg:h-screen overflow-hidden">
 
       {/* Image */}
-      <div className="w-full md:w-1/2 md:h-full overflow-hidden">
+      <div className="w-full md:w-1/2 h-[50vh] md:h-full overflow-hidden">
         <img
           src="https://i.pinimg.com/1200x/a7/59/cc/a759cc0b1d85c60498cfd7fbf93b956f.jpg"
           alt="CTA Image"
@@ -92,8 +93,7 @@ const CTA = () => {
 
       {/* Content */}
       <div className="bg-pink-500 
-        px-5 py-8 
-        sm:px-8 sm:py-10 
+        px-[1.5rem] py-[4rem]
         md:p-14 md:pt-[7rem] 
         text-white shadow-2xl 
         w-full md:w-1/2 
@@ -139,29 +139,29 @@ const CTA = () => {
         />
 
         {/* Buttons */}
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 md:gap-6">
-          <button className="
+        <div className="flex flex-col sm:flex-row gap-3 md:gap-[1rem]">
+          <Link href="/shop" className="
             px-6 py-3 
-            sm:px-8 sm:py-3.5 
-            md:px-10 md:py-[1.1rem]
+            md:px-[3rem] md:py-[1rem]
             bg-black uppercase text-white
-            text-xs sm:text-sm md:text-[0.9rem]
+            text-xs  md:text-[0.9rem]
             rounded-full shadow-lg transition
+            text-center
           ">
             See Products
-          </button>
+          </Link>
 
-          <button className="
+          <Link href="/contact" className="
             px-6 py-3 
-            sm:px-8 sm:py-3.5 
-            md:px-10 md:py-[1.1rem]
+            md:px-[3rem] md:py-[1rem]
             uppercase border border-white text-white
-            text-xs sm:text-sm md:text-[0.9rem]
+            text-xs md:text-[0.9rem]
             rounded-full transition
+            text-center
             hover:bg-white hover:text-pink-500
           ">
             Call us
-          </button>
+          </Link>
         </div>
       </div>
     </section>

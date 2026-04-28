@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Product } from "@/types";
-import { Minus, Plus } from "lucide-react";
+import { Link, Minus, Plus } from "lucide-react";
 import useCart from "@/store";
 import Image from "next/image";
 import {
@@ -33,10 +33,11 @@ const ProductView = ({
     <section className="relative min-h-screen mt-[5.5rem]">
 
       {/* Main Layout */}
-      <div className="flex flex-col lg:flex-row min-h-screen lg:items-start px-[1rem] lg:px-0">
+      <div className="flex flex-col lg:flex-row min-h-screen lg:items-start px-[1.5rem] lg:px-0">
 
         {/* LEFT — Images Column */}
         <div className="lg:w-[50%] w-full flex flex-col gap-[1rem]">
+
           {/* Main large image */}
           <div className="relative w-full lg:h-screen h-[70vw]">
             <Image
@@ -61,18 +62,9 @@ const ProductView = ({
 
         {/* RIGHT — Sticky Info Panel */}
         <div className="lg:w-[50%] w-full lg:self-start lg:sticky lg:top-0">
-          <div className="h-screen overflow-y-auto flex flex-col justify-center px-[1rem] lg:px-[4rem] py-[4rem]">
+          <div className="h-full lg:h-screen overflow-y-auto flex flex-col justify-center px-[1rem] py-[2rem] lg:px-[4rem]">
 
-            {/* Tags */}
-            <div className="flex items-center gap-[.5rem] mb-[1.5rem]">
-              <span className="text-[.7rem] uppercase tracking-[.15em] border-black/20 text-black border px-[.75rem] py-[.25rem] rounded-full font-[300]">
-                In Stock
-              </span>
-              <span className="text-[.7rem] uppercase tracking-[.15em] border-black/20  text-black border  px-[.75rem] py-[.25rem] rounded-full font-[300]">
-                Free Shipping
-              </span>
-            </div>
-
+            <span className="text-black/50 text-[1rem] mb-[1rem]"><a href="/">Home</a>/<a href={`/collections/${product.collectionId?.name.replace(/\s+/g, '-')}`}>{product.collectionId?.name}</a>/<a>{product.name}</a></span>
             {/* Name & Price */}
             <div>
               <h1 className="text-[2.2rem] lg:text-[2.8rem] leading-[1.1] mb-[.75rem]">
@@ -92,7 +84,7 @@ const ProductView = ({
                 <button className="cursor-pointer" onClick={() => setQuantity(Math.max(1, quantity - 1))}>
                   <Minus size={14} />
                 </button>
-                <span className="text-[1rem] telegraf font-[200]">{quantity}</span>
+                <span className="text-[1rem]">{quantity}</span>
                 <button className="cursor-pointer" onClick={() => setQuantity(quantity + 1)}>
                   <Plus size={14} />
                 </button>
@@ -109,27 +101,35 @@ const ProductView = ({
             {/* Accordion */}
             <Accordion type="single" collapsible>
               <AccordionItem value="description" className="border-black/10">
-                <AccordionTrigger className="text-[1.2rem] text-[#111] uppercase font-[400] py-[1rem]">
+                <AccordionTrigger className="text-[1.2rem] text-[#111] uppercase py-[1rem]">
                   Description
                 </AccordionTrigger>
-                <AccordionContent className="text-[1rem] text-[#555] leading-relaxed">
+                <AccordionContent className="text-[0.9rem] lg:text-[1rem] text-[#555] leading-relaxed">
                   {product.description}
                 </AccordionContent>
               </AccordionItem>
+
+              <AccordionItem value="key-features" className="border-black/10">
+                <AccordionTrigger className="text-[1.2rem] text-[#111] uppercase py-[1rem]">
+                  Key Features
+                </AccordionTrigger>
+                <AccordionContent className="text-[0.9rem] lg:text-[1rem]  text-[#555] leading-relaxed">
+                  <ul className="list-disc pl-5">
+                    <li>100% Virgin Human Hair</li>
+                    <li>Soft, Silky, and Tangle-Free</li>
+                    <li>Durable with Proper Care</li>
+                    <li>Natural Look and Feel</li>
+                    <li>Available in Multiple Lengths and Colors</li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+
               <AccordionItem value="shipping" className="border-black/10">
                 <AccordionTrigger className="text-[1.2rem] text-[#111] uppercase py-[1rem]">
                   Shipping & Returns
                 </AccordionTrigger>
-                <AccordionContent className="text-[0.8rem] lg:text-[0.95rem]  text-[#555] leading-relaxed telegraf">
+                <AccordionContent className="text-[0.9rem] lg:text-[1rem]  text-[#555] leading-relaxed">
                   Free shipping on all orders. Returns accepted within 30 days.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="sizing" className="border-black/10">
-                <AccordionTrigger className="text-[1.2rem] text-[#111] uppercase">
-                  Size Guide
-                </AccordionTrigger>
-                <AccordionContent className="text-[0.8rem] lg:text-[0.95rem] text-[#555] leading-relaxed telegraf">
-                  Fits true to size. We recommend sizing up if between sizes.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -139,11 +139,11 @@ const ProductView = ({
 
       {/* Related Products */}
       {relatedProducts?.length > 0 && (
-        <div className="px-[2rem] py-[5rem] border-t border-black/10">
-          <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] text-center leading-[1.1] mb-[4rem]">
+        <div className="px-[1.5rem] lg:px-[3rem] py-[2rem] lg:py-[5rem] border-t border-black/10">
+          <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[5rem] text-center mb-[2rem] lg:mb-[4rem]">
             Related Products
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1rem]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-[2rem] lg:gap-[3rem]">
             {relatedProducts.map((p, index) => (
               <ProductCard item={p} key={index} />
             ))}

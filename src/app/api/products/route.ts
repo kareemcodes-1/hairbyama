@@ -1,11 +1,12 @@
 import { NextResponse, NextRequest } from "next/server";
 import Product from "../../../../models/Product"
+import Collection from "../../../../models/Collection";
 import dbConnect from "@/lib/dbConnect";
 
 export async function GET(request: NextRequest) {
   try {
       await dbConnect();
-      const products = await Product.find();
+      const products = await Product.find().populate("collectionId", "name description images");
       if(!products){
         return new NextResponse(JSON.stringify({ error: 'Data is empty' }), {
         status: 400,

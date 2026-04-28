@@ -17,9 +17,9 @@ const ProductCard = ({item}: {item: Product}) => {
               <div className="mt-4 flex flex-col gap-2">
                 <div className='flex items-center justify-between'>
                   <h2 className="text-[1.3rem] lg:text-[1.5rem] text-black">{item.name}</h2>
-                  <p className="text-[1.3rem] lg:text-[1.7rem] text-black/90 uppercase">{priceFormatter(item.price)}</p>
+                  <p className="text-[1.3rem] text-black/50">{item.collectionId?.name}</p>
                 </div>
-                <p className="text-[.75rem] text-black/70 uppercase">{item.description}</p>
+                 <p className="text-[1.4rem] text-black/90 uppercase font-bold">{priceFormatter(item.price)}</p>
               </div>
          </a>
   )

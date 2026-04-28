@@ -56,7 +56,7 @@ const Login = () => {
       {/* Form Side */}
       <div className="flex flex-col justify-center w-full lg:w-1/2 px-[1.5rem] py-[3rem] lg:px-8 lg:py-12">
         <div className="w-full max-w-[400px] mx-auto">
-          <h2 className="mb-[2rem] text-center text-[1.1rem] lg:text-[1.5rem] font-semibold text-black">
+          <h2 className="mb-[2rem] text-center text-[1.1rem] lg:text-[1.5rem]  text-black">
             Sign In To Account
           </h2>
 
@@ -69,7 +69,7 @@ const Login = () => {
                 type="email"
                 name="email"
                 id="email"
-                className="h-[3rem] lg:h-[3.5rem] rounded-full uppercase"
+                className="h-[3rem] lg:h-[3.5rem] rounded-full"
               />
             </div>
 
@@ -107,9 +107,9 @@ const Login = () => {
             </div>
           </form>
 
-          <p className="mt-8 lg:mt-10 text-center text-[.8rem] lg:text-[.825rem] text-muted-foreground telegraf uppercase font-[200]">
+          <p className="mt-8 lg:mt-10 text-center text-[.8rem] lg:text-[.825rem] text-muted-foreground uppercase">
             Don&apos;t have an account?{" "}
-            <Link href="/auth/register" className="font-semibold text-black hover:text-pink-400 transition-colors underline">
+            <Link href="/auth/register" className=" text-black hover:text-pink-400 transition-colors underline">
               Register
             </Link>
           </p>

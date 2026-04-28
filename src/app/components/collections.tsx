@@ -45,7 +45,7 @@ const Collections = ({ collections }: { collections: Collection[] }) => {
                   <h2 className='text-[1.5rem] sm:text-[1.75rem] md:text-[2rem] text-white leading-tight'>{item.name}</h2>
                   <Link
                     href={`/shop`}
-                    className="border cursor-pointer border-white text-white px-4 sm:px-6 py-1.5 sm:py-2 rounded-full uppercase text-[0.7rem] sm:text-[0.8rem] md:text-[1rem] whitespace-nowrap flex-shrink-0"
+                    className="border cursor-pointer border-white text-white px-4  py-[.8rem] lg:py-[.9rem] rounded-full uppercase text-[0.8rem] md:text-[1rem] whitespace-nowrap flex-shrink-0"
                   >
                     Shop Now
                   </Link>

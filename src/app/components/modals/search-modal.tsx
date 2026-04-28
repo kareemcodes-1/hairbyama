@@ -4,8 +4,8 @@ import { createPortal } from "react-dom";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { X, Search } from "lucide-react";
-import { getProducts } from "@/app/actions/getProducts";
-import { Product } from "../../../../types";
+import { getProducts } from "@/actions/getProducts";
+import { Product } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -87,7 +87,7 @@ useEffect(() => {
   };
 
   return createPortal(
-    <div className={`fixed inset-0 z-[2000000] ${openSearchModal ? "pointer-events-auto" : "pointer-events-none"}`}>
+    <div className={`fixed inset-0 z-[360] ${openSearchModal ? "pointer-events-auto" : "pointer-events-none"}`}>
       {/* Overlay */}
       <div
         ref={overlayRef}

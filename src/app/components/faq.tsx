@@ -23,7 +23,20 @@ const FAQ = () => {
         <SplitText
           text="You got questions? We've got answers."
           tag="h1"
-          className="hidden md:block text-[2rem] md:text-[3.5rem] lg:text-[5rem] text-center text-black leading-[1.3] overflow-hidden w-full sm:max-w-[90%] md:max-w-[700px]"
+          className="hidden md:block text-[2rem] md:text-[3.5rem] lg:text-[5rem] text-center text-black overflow-hidden max-w-[700px]"
+          duration={1}
+          ease="power3.out"
+          splitType="chars"
+          threshold={0.1}
+          rootMargin="-100px"
+          stagger={0.025}
+        />
+
+        <div className="block md:hidden leading-[120%]">
+          <SplitText
+          text="Your questions,"
+          tag="h1"
+          className=" text-[2rem] md:text-[3.5rem] lg:text-[5rem] text-center  text-black overflow-hidden w-full"
           duration={1}
           ease="power3.out"
           splitType="chars"
@@ -33,9 +46,9 @@ const FAQ = () => {
         />
 
         <SplitText
-          text="Your questions, answered."
+          text="answered."
           tag="h1"
-          className="block md:hidden text-[2rem] md:text-[3.5rem] lg:text-[5rem] text-center  text-black leading-[1.3] overflow-hidden w-full sm:max-w-[90%] md:max-w-[700px]"
+          className="text-[2rem] md:text-[3.5rem] lg:text-[5rem] text-center  text-black overflow-hidden w-full"
           duration={1}
           ease="power3.out"
           splitType="chars"
@@ -43,6 +56,7 @@ const FAQ = () => {
           rootMargin="-100px"
           stagger={0.025}
         />
+        </div>
       </div>
 
       <div className="w-full mx-auto mt-10 sm:mt-14 md:mt-16 max-w-[800px] flex flex-col gap-6">
