@@ -10,7 +10,7 @@ export default async function ProductPage({
   const { name } = await params;
   const decodedName = decodeURIComponent(name.replace(/-/g, " "));
   const product = await getProduct(decodedName);
-  const relatedProducts = await getRelatedProducts(product.collectionId, product._id, 5);
+  const relatedProducts = await getRelatedProducts(product.collectionId._id, product._id, 5);
 
   return <ProductView product={product} relatedProducts={relatedProducts} />;
 }
