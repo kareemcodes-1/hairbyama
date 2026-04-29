@@ -112,7 +112,7 @@ const Navbar: React.FC = () => {
             {/* Cart + User */}
             <div className="flex items-center gap-[1rem]">
 
-               <button className={`hidden lg:block text-[.975rem] uppercase cursor-pointer transition ${
+               <button className={` text-[.975rem] uppercase cursor-pointer transition ${
                   isLight ? 'text-white hover:text-pink-400' : 'text-black hover:text-pink-400'
                 }`}
                 onClick={() => setOpenSearchModal(true)}>
@@ -135,7 +135,7 @@ const Navbar: React.FC = () => {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button
-                      className={`transition outline-none ${
+                      className={`hidden lg:block transition outline-none ${
                         isLight ? 'text-white hover:text-pink-400' : 'text-black hover:text-pink-400'
                       }`}
                     >

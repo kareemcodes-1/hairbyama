@@ -95,11 +95,11 @@ const MenuModal: React.FC<MenuModalProps> = ({
         {/* Links */}
         <div className="flex flex-col gap-[1rem] text-white">
           <div className="flex items-start flex-col p-[1rem] lg:mt-[4rem] mt-[10rem] gap-[1rem]">
-            <ul className="flex flex-col gap-[3rem] lg:gap-[2rem] font-medium tracking-[.2rem]">
+            <ul className="flex flex-col gap-[3rem] lg:gap-[2rem] font-[500]">
               <Link
                 href="/shop"
                 onClick={() => setOpenMenuModal(false)}
-                className="cursor-pointer xl:text-[7rem] lg:text-[5rem] text-[3rem]"
+                className="cursor-pointer xl:text-[7rem] lg:text-[5rem] text-[2rem]"
               >
                 <FlipLink>SHOP</FlipLink>
               </Link>
@@ -107,7 +107,7 @@ const MenuModal: React.FC<MenuModalProps> = ({
               <Link
                 href="/about"
                 onClick={() => setOpenMenuModal(false)}
-                className="cursor-pointer xl:text-[7rem] lg:text-[5rem] text-[3rem]"
+                className="cursor-pointer xl:text-[7rem] lg:text-[5rem] text-[2rem]"
               >
                 <FlipLink>ABOUT</FlipLink>
               </Link>
@@ -115,7 +115,7 @@ const MenuModal: React.FC<MenuModalProps> = ({
               <Link
                 href="/contact"
                 onClick={() => setOpenMenuModal(false)}
-                className="cursor-pointer xl:text-[7rem] lg:text-[5rem] text-[3rem]"
+                className="cursor-pointer xl:text-[7rem] lg:text-[5rem] text-[2rem]"
               >
                 <FlipLink>CONTACT</FlipLink>
               </Link>
@@ -124,7 +124,7 @@ const MenuModal: React.FC<MenuModalProps> = ({
               <li className="list-none flex flex-col">
                 <button
                   onClick={() => setAccountOpen((prev) => !prev)}
-                  className="cursor-pointer xl:text-[7rem] lg:text-[5rem] text-[3rem] text-left flex items-center gap-3"
+                  className="cursor-pointer xl:text-[7rem] lg:text-[5rem] text-[2rem] text-left flex items-center gap-3"
                 >
                   <FlipLink>ACCOUNT</FlipLink>
                   <ChevronDown

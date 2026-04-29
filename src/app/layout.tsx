@@ -8,6 +8,7 @@ import Navbar from "./components/navbar";
 import { cn } from "@/lib/utils";
 import ToastProvider from "./providers/toast-provider";
 import AuthProvider from "./providers/provider";
+import PageLoader from "@/components/loading";
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+      <PageLoader /> 
       <AuthProvider>
       <ToastProvider />
       <Navbar />

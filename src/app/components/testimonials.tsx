@@ -153,9 +153,17 @@ export default function TestimonialSection() {
       },
     });
 
+    // AUTOPLAY
+    // AUTOPLAY (step-based, smooth, no glitch)
+const autoPlay = gsap.delayedCall(4, function repeat() {
+  scrollToOffset(scrub.vars.offset + spacing);
+  autoPlay.restart(true);
+});
+
     return () => {
       scrub.kill();
       seamlessLoop.kill();
+      autoPlay.kill();
     };
   }, []);
 
