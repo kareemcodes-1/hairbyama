@@ -1,6 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 import Product from "../../models/Product";
-import Collection from "../../models/Collection";
+import "../../models/Collection";
 
 export async function getRelatedProducts(
   collectionId: string,
