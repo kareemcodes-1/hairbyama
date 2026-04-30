@@ -174,7 +174,7 @@ const Navbar: React.FC = () => {
               ) : (
                 <Link
                   href="/auth/login"
-                  className={`text-[.975rem] uppercase transition ${
+                  className={`hidden lg:block text-[.975rem] uppercase transition ${
                     isLight ? 'text-white hover:text-pink-400' : 'text-black hover:text-pink-400 cursor-pointer'
                   }`}
                 >

@@ -62,16 +62,16 @@ const ProductView = ({
 
         {/* RIGHT — Sticky Info Panel */}
         <div className="lg:w-[50%] w-full lg:self-start lg:sticky lg:top-0">
-          <div className="h-full lg:h-screen overflow-y-auto flex flex-col justify-center px-[1rem] py-[2rem] lg:px-[4rem]">
+          <div className="h-full lg:h-screen overflow-y-auto flex flex-col justify-center py-[1.5rem] lg:px-[4rem]">
 
             <span className="text-black/50 text-[1rem] mb-[1rem]"><a href="/">Home</a>/<a href={`/collections/${product.collectionId?.name.replace(/\s+/g, '-')}`}>{product.collectionId?.name}</a>/<a>{product.name}</a></span>
             {/* Name & Price */}
             <div>
-              <h1 className="text-[2.2rem] lg:text-[2.8rem] leading-[1.1] mb-[.75rem]">
+              <h1 className="text-[2rem] lg:text-[2.8rem] leading-[1.1] mb-[.75rem]">
               {product.name}
             </h1>
             <div className="w-full h-[1px] bg-black/10 mb-[1.5rem]" />
-            <p className="text-[1.8rem] mb-[2rem]">
+            <p className="text-[1.5rem] lg:text-[1.8rem] mb-[2rem]">
               {priceFormatter(product.price)}
             </p>
             </div>
